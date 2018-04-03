@@ -41,17 +41,12 @@ var spotify = new Spotify({
   secret: process.env.SPOTIFY_SECRET
 });
 
-// if no song is provided
-var noSong = function(instruction) {
+// function for retrieving song from spotify
+spotify.getSong = function(instruction) {
   if (instruction === undefined) {
     instruction = "The Sign";
   }
-  spotify.getSong(instruction);
-};
-
-// function for retrieving song from spotify
-spotify.getSong = function(songName) {
-  spotify.search({ type: "track", limit: 1, query: songName }, function(
+  spotify.search({ type: "track", limit: 1, query: instruction }, function(
     err,
     data
   ) {
@@ -125,7 +120,7 @@ var runCommand = function(command, value) {
       getTweets();
       break;
     case "spotify-this-song":
-    noSong(value);
+    spotify.getSong(value);
       break;
     case "movie-this":
       movieThis(value);
