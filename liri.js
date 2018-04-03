@@ -12,6 +12,12 @@ var instruction = process.argv[3];
 var liriCommand = process.argv[2];
 function commandLog(){
   var log = "log.txt";
+  if(liriCommand === undefined){
+    liriCommand = "Liri wasn't told to do anything";
+  }
+  if(instruction === undefined){
+    instruction = "Liri doesn't recognize this command.";
+  }
   fs.appendFile(log, liriCommand + ": " + instruction + ". \n", function(err) {
     if (err) {
       console.log(err);
@@ -144,7 +150,8 @@ var runCommand = function(command, value) {
       doIt();
       break;
     default:
-      console.log("LIRI DOES NOT KNOW THAT");
+      commandLog();
+      console.log("I don't know that, but I'm always learning. Check back later.");
   }
 };
 
